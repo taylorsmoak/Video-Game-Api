@@ -4,20 +4,20 @@ from pydantic import BaseModel
 class VideoGame(BaseModel):
     id: int
     name: str
-    url: str
-    year: int
-    certificate: str
-    rating: str
-    plot: str
-    action: bool
-    adventure: bool
-    comedy: bool
-    crime: bool
-    family: bool
-    fantasy: bool
-    mystery: bool
-    science_fiction: bool
-    thriller: bool
+    url: str | None
+    year: int | None
+    certificate: str | None
+    rating: str | None
+    plot: str | None
+    action: bool | None
+    adventure: bool | None
+    comedy: bool | None
+    crime: bool | None
+    family: bool | None
+    fantasy: bool | None
+    mystery: bool | None
+    science_fiction: bool | None
+    thriller: bool | None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
