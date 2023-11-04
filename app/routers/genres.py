@@ -1,16 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from .. import models, schemas, database
 from sqlalchemy.orm import Session
-from typing import Literal
 
 router = APIRouter(prefix='/genres', tags=['Genres'])
 
-available_genres = Literal[
-    'action', 'adventure', 'comedy', 'crime', 'family', 'fantasy', 'mystery', 'science_fiction', 'thriller']
-
 
 @router.get('/{genre}', response_model=list[schemas.VideoGame])
-async def get_games_by_genre(genre: available_genres, db: Session = Depends(database.get_db)):
+async def get_games_by_genre(genre: schemas.genres, db: Session = Depends(database.get_db)):
     games = db.query(models.VideoGame).order_by(models.VideoGame.name).filter(
         getattr(models.VideoGame, genre) == 'True')
     if not games:

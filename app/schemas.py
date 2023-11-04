@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Literal
 
 
 class VideoGame(BaseModel):
@@ -21,3 +22,7 @@ class VideoGame(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+genres = Literal[
+    'action', 'adventure', 'comedy', 'crime', 'family', 'fantasy', 'mystery', 'science_fiction', 'thriller']
