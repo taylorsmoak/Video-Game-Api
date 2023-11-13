@@ -2,17 +2,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from urllib import parse
-import os
-from dotenv import load_dotenv
+from .config import settings
 
-load_dotenv()
-
-DATABASE_USERNAME = os.getenv("DATABASE_USERNAME")
-DATABASE_SERVER = os.getenv("DATABASE_SERVER")
-DATABASE_NAME = os.getenv("DATABASE_NAME")
-DATABASE_PASSWORD = parse.quote_plus(os.getenv("DATABASE_PASSWORD"))
-
-SQLALCHEMY_DATABASE_URL = f"postgresql://{DATABASE_USERNAME}:{DATABASE_PASSWORD}@{DATABASE_SERVER}/{DATABASE_NAME}"
+SQLALCHEMY_DATABASE_URL = f"postgresql://{settings.database_username}:{parse.quote_plus(settings.database_password)}@{settings.database_server}:{settings.database_port}/{settings.database_name}"
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL
