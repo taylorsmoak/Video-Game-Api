@@ -1,11 +1,18 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .database import Base, engine
-from .routers import titles, ids, release_dates, ratings, genres
+from .routers import games
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+tags_metadata = [
+    {
+        "name": "Games",
+        "description": "The games endpoint provides information on video games.",
+    },
+]
+
+app = FastAPI(title='Video Game API', openapi_tags=tags_metadata)
 
 app.add_middleware(
     CORSMiddleware,
@@ -15,11 +22,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(titles.router)
-app.include_router(ids.router)
-app.include_router(release_dates.router)
-app.include_router(ratings.router)
-app.include_router(genres.router)
+app.include_router(games.router)
 
 
 @app.get('/')
